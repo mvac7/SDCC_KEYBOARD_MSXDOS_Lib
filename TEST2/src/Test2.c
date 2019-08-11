@@ -1,8 +1,7 @@
 /* =============================================================================
-   Test2 GetKeyMatrix() 
-   Test SDCC Keyboard MSXROM Lib v1.0
-   Version: 1.0
-   Date: 14/07/2018
+   SDCC Keyboard MSX-DOS Lib Test 2 (GetKeyMatrix)
+   Version: 1.1
+   Date: 11/08/2019
    Author: mvac7/303bcn
    Architecture: MSX
    Format:  .COM (MSX-DOS)
@@ -14,6 +13,7 @@
      Test the GetKeyMatrix function of the MSXDOS Keyboard library.
      
    History of versions:
+     - v1.1 (11/08/2019) improved pulsation control
      - v1.0 (14/07/2018)
      
 ============================================================================= */
@@ -189,7 +189,7 @@ __endasm;
 void test()
 {
   char val;
-  char pressKey;
+  char keyPressed;
   char B;
   uint i;
   uint offset;
@@ -223,22 +223,22 @@ void test()
 
     for(B=0;B<9;B++)
     {
-      pressKey = GetKeyMatrix(B);
+      keyPressed = GetKeyMatrix(B);
       
-      if (pressKey==255)
+      if (keyPressed==255)
       {
         //no se han pulsado teclas de esta linea 
         offset = 244+(B*80);
         CopyToVRAM((uint) keyb_map + offset,BASE0 + offset,31);
       }else{
-        if ((pressKey|0b11111110)==0b11111110) printKey(7,B);
-        if ((pressKey|0b11111101)==0b11111101) printKey(6,B);
-        if ((pressKey|0b11111011)==0b11111011) printKey(5,B);
-        if ((pressKey|0b11110111)==0b11110111) printKey(4,B);
-        if ((pressKey|0b11101111)==0b11101111) printKey(3,B);
-        if ((pressKey|0b11011111)==0b11011111) printKey(2,B);
-        if ((pressKey|0b10111111)==0b10111111) printKey(1,B);
-        if ((pressKey|0b01111111)==0b01111111) printKey(0,B); 
+        if (!(keyPressed&Bit0)) printKey(7,B); 
+        if (!(keyPressed&Bit1)) printKey(6,B);
+        if (!(keyPressed&Bit2)) printKey(5,B);
+        if (!(keyPressed&Bit3)) printKey(4,B);
+        if (!(keyPressed&Bit4)) printKey(3,B);
+        if (!(keyPressed&Bit5)) printKey(2,B);
+        if (!(keyPressed&Bit6)) printKey(1,B);
+        if (!(keyPressed&Bit7)) printKey(0,B);  
       }
     
     } //END For

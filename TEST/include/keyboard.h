@@ -4,7 +4,6 @@
    Date: 7 March 2016
    Author: mvac7/303bcn
    Architecture: MSX
-   Format: header (.h)
    Programming language: C
    WEB: 
    mail: mvac7303b@gmail.com
@@ -18,6 +17,18 @@
 #define __KEYBOARD_H__
 
 
+
+#ifndef  __BITVALUES__
+#define  __BITVALUES__
+#define Bit0 1
+#define Bit1 2
+#define Bit2 4
+#define Bit3 8
+#define Bit4 16
+#define Bit5 32
+#define Bit6 64
+#define Bit7 128
+#endif
 
 /* =============================================================================
    KillBuffer
