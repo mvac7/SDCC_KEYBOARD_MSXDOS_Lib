@@ -2,7 +2,7 @@
    SDCC Keyboard MSX-DOS Functions Library (object type)
    Version: 1.0
    Date: 2 March 2016
-   Author: mvac7/303bcn
+   Author: mvac7
    Architecture: MSX
    Format: C Object (SDCC .rel)
    Programming language: C
@@ -28,7 +28,7 @@
   Input    : -
   Output   : -
 ============================================================================= */
-void KillBuffer()
+void KillBuffer() __naked
 {
 __asm   
   push IX
@@ -39,7 +39,7 @@ __asm
   ei
     
   pop  IX
-    
+  ret  
 __endasm;
 }
 
@@ -52,7 +52,7 @@ __endasm;
    Input    : -
    Output   : [char] key code
 ============================================================================= */
-char INKEY()
+char INKEY() __naked
 {
 __asm   
    push IX
@@ -65,6 +65,7 @@ __asm
    ld   L,A
 
    pop  IX
+   ret
 __endasm;
 }
 
@@ -78,12 +79,12 @@ __endasm;
               Each line provides the status of 8 keys.
               To know which keys correspond, you will need documentation that 
               includes a keyboard table.
-   Input    : [char] line 
+   Input    : [char] row 
    Output   : [char] state of the keys. 1 = not pressed; 0 = pressed
 ============================================================================= */
-char GetKeyMatrix(char line)
+char GetKeyMatrix(char row) __naked
 {
-line;
+row;
 __asm
   push IX
   ld   IX,#0
@@ -99,5 +100,6 @@ __asm
   ld   L,A
   
   pop  IX
+  ret
 __endasm;
 }

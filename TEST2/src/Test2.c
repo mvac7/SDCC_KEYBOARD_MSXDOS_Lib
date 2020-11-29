@@ -2,7 +2,7 @@
    SDCC Keyboard MSX-DOS Lib Test 2 (GetKeyMatrix)
    Version: 1.1
    Date: 11/08/2019
-   Author: mvac7/303bcn
+   Author: mvac7
    Architecture: MSX
    Format:  .COM (MSX-DOS)
    Programming language: C (SDCC)
@@ -45,7 +45,6 @@ void printKey(char column, char line);
 void PRINT(char column, char line, char* text);
 uint GetVAddressByPosition(char column, char line);
 void CLS();
-char PEEK(uint address);
 
 
 // constants  ------------------------------------------------------------------
@@ -166,18 +165,19 @@ void main(void)
 // call system functions 
 // see MSX Assembly Page > MSX-DOS 2 function calls
 // http://map.grauw.nl/resources/dos2_functioncalls.php
-void System(char code)
+void System(char code) __naked
 {
 code;
 __asm
-	push IX
-	ld   IX,#0
-	add  IX,SP
+  push IX
+  ld   IX,#0
+  add  IX,SP
 
-	ld   C,4(IX)
-	call SYSTEM
+  ld   C,4(IX)
+  call SYSTEM
 
-	pop  IX
+  pop  IX
+  ret
 __endasm; 
 }
 
@@ -261,11 +261,11 @@ void printKey(char column, char line)
   vaddr = 244 + (column*4) +(line*80);
   addr= (uint) keyb_map + vaddr;
   
-  tmpTile = peek(addr++)+96;
+  tmpTile = PEEK(addr++)+96;
   VPOKE(vaddr++,tmpTile);
-  tmpTile = peek(addr++)+96;
+  tmpTile = PEEK(addr++)+96;
   VPOKE(vaddr++,tmpTile);
-  tmpTile = peek(addr)+96;
+  tmpTile = PEEK(addr)+96;
   VPOKE(vaddr,tmpTile);
 }
 
@@ -323,7 +323,7 @@ uint GetVAddressByPosition(char column, char line)
  Input:    -        
  Output:   -
 ============================================================================= */
-void CLS()
+void CLS() __naked
 {
 __asm
 
@@ -337,23 +337,6 @@ __asm
   ei
     
   pop  IX
-  
-__endasm;
-}
-
-
-char PEEK(uint address)
-{
-address;
-__asm
-  push IX
-  ld   IX,#0
-  add  IX,SP
-    
-  ld   L,4(IX)
-  ld   H,5(IX)
-  ld   L,(HL)
-
-  pop  IX
+  ret
 __endasm;
 }
