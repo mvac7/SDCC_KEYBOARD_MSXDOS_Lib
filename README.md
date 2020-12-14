@@ -1,19 +1,15 @@
-# SDCC Keyboard MSX-DOS Functions Library
+# Keyboard MSX-DOS SDCC Library (fR3eL Project)
 
-Author: mvac7
-
+```
+Author: mvac7 [mvac7303b@gmail.com]
 Architecture: MSX
-
-Programming language: C and Z80 Assembler
-
-Format: .rel (SDCC object file)
-
-mail: mvac7303b@gmail.com
+Format: C Object (SDCC .rel)
+Programming language: C and Z80 assembler
+```
 
 
 
-
-## 1. Introduction
+## Description
 
 This project is an Open Source library with basic functions for reading the keyboard of MSX computers.
 
@@ -21,48 +17,59 @@ Use them for developing MSX applications using Small Device C Compiler (SDCC).
 
 This library uses functions from the MSX BIOS through interslot calls (CALSLT), so that they can be used in MSXDOS applications.
 
-Includes an application for test and learning purposes.
+Two applications are included in the source code for testing and learning purposes.
+
+This library is part of the [MSX fR3eL Project](https://github.com/mvac7/SDCC_MSX_fR3eL).
+
+Enjoy it!
 
 
 
-## 2. Acknowledgments
+## Requirements
+
+* Small Device C Compiler (SDCC) v3.9 http://sdcc.sourceforge.net/
+* Hex2bin v2.5 http://hex2bin.sourceforge.net/ 
+
+
+
+## Acknowledgments
   
-Thanks for Info & help, to:
+I want to give a special thanks to all those who freely share their knowledge with the MSX developer community.
 
-* Avelino Herrera > http://msx.atlantes.org/index_es.html
-* Nerlaska > http://albertodehoyonebot.blogspot.com.es
-* Fubu > http://www.gamerachan.org/fubu/
-* MSX Assembly Page > http://map.grauw.nl/resources/msxbios.php
-* Portar MSX Tech Doc > http://nocash.emubase.de/portar.htm
-* MSX Resource Center > http://www.msx.org/
+* Avelino Herrera > [WEB](http://msx.atlantes.org/index_es.html)
+* Nerlaska > [Blog](http://albertodehoyonebot.blogspot.com.es)
+* Marq/Lieves!Tuore > [Marq](http://www.kameli.net/marq/) [Lieves!Tuore](http://www.kameli.net/lt/)
+* [Fubukimaru](https://github.com/Fubukimaru) > [Blog](http://www.gamerachan.org/fubu/)
+* Andrear > [Blog](http://andrear.altervista.org/home/msxsoftware.php)
+* Ramones > [MSXblog](https://www.msxblog.es/tutoriales-de-programacion-en-ensamblador-ramones/) - [MSXbanzai](http://msxbanzai.tni.nl/dev/faq.html)
+* Sapphire/Z80ST > [WEB](http://z80st.auic.es/)
+* Fernando García > [youTube](https://www.youtube.com/user/bitvision)
+* Eric Boez > [gitHub](https://github.com/ericb59)
+* MSX Assembly Page > [WEB](http://map.grauw.nl/resources/msxbios.php)
+* Portar MSX Tech Doc > [WEB](http://nocash.emubase.de/portar.htm)
+* MSX Resource Center > [WEB](http://www.msx.org/)
 * Karoshi MSX Community (RIP 2007-2020)
-* BlueMSX >> http://www.bluemsx.com/
-* OpenMSX >> http://openmsx.sourceforge.net/
-* Meisei  >> ?
+* BlueMSX emulator >> [WEB](http://www.bluemsx.com/)
+* OpenMSX emulator >> [WEB](http://openmsx.sourceforge.net/)
+* Meisei emulator >> ?
 
 
 
-## 3. Requirements
+## Functions
 
-* Small Device C Compiler (SDCC) v3.6 http://sdcc.sourceforge.net/
-* Hex2bin v2.2 http://hex2bin.sourceforge.net/ 
-
-
-
-## 4. Functions
-
-* void KillBuffer() - Clear keyboard buffer.
-* char INKEY() - One character input (waiting) and return its code.
-* char GetKeyMatrix(row) - Returns the value of the specified line from the keyboard matrix.
+* void **KillBuffer**() - Clear keyboard buffer.
+* char **INKEY**() - One character input (waiting) and return its code.
+* char **GetKeyMatrix**(row) - Returns the value of the specified line from the keyboard matrix.
 
 
-## 5. Keyboard Matrix
+
+## Keyboard Matrix
 
   Info by MSX Assembly Page 
   http://map.grauw.nl/articles/keymatrix.php
   
   
-### 5.1 International
+### International
 ```  
 Row  7      6      5      4      3      2      1      0    <-- bit
 -----------------------------------------------------------
@@ -78,7 +85,7 @@ Row  7      6      5      4      3      2      1      0    <-- bit
 ```
 
 
-### 5.2 Numeric pad
+### Numeric pad
 ```
 Row  7      6      5      4      3      2      1      0    <-- bit
 ----------------------------------------------------------- 
@@ -87,7 +94,7 @@ Row  7      6      5      4      3      2      1      0    <-- bit
 ```
 
  
-## 6. A bit of code
+## A bit of code
  
 This code contains the basis for controlling any key with pressure control.
 

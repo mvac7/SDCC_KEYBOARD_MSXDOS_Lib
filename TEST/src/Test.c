@@ -109,7 +109,7 @@ void test()
 // call system functions 
 // see MSX Assembly Page > MSX-DOS 2 function calls
 // http://map.grauw.nl/resources/dos2_functioncalls.php
-void System(char code)
+void System(char code) __naked
 {
 code;
 __asm
@@ -121,6 +121,7 @@ __asm
 	call SYSTEM
 
 	pop  IX
+    ret
 __endasm; 
 }
 

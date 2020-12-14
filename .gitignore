@@ -3,3 +3,4 @@
 /_Releases/*
 **/old/*
 **/_tmp/*
+**/*.dsk

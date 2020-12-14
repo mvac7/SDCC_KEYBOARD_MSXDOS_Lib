@@ -50,7 +50,7 @@ void CLS();
 // constants  ------------------------------------------------------------------
 const char text01[] = "Test GetKeyMatrix() v1.0 (14/07/2018)";
 const char text02[] = "Test SDCC Keyboard MSXDOS Lib v1.0";
-const char text03[] = "Hold down ESC key for exit to DOS";
+const char text03[] = "Hold down ESC key to exit to DOS";
 
 
 
@@ -218,7 +218,7 @@ void test()
   {
     HALT;
 
-    if (GetKeyMatrix(7)==0b11111011) isExit++;
+    if (!(GetKeyMatrix(7)&Bit2)) isExit++;
     else isExit=0;
 
     for(B=0;B<9;B++)
