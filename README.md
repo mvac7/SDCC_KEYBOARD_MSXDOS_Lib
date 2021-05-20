@@ -17,7 +17,7 @@ Use them for developing MSX applications using Small Device C Compiler (SDCC).
 
 This library uses functions from the MSX BIOS through interslot calls (CALSLT), so that they can be used in MSXDOS applications.
 
-Two applications are included in the source code for testing and learning purposes.
+In the source code (\examples), you can find applications for testing and learning purposes.
 
 This library is part of the [MSX fR3eL Project](https://github.com/mvac7/SDCC_MSX_fR3eL).
 
@@ -48,7 +48,7 @@ I want to give a special thanks to all those who freely share their knowledge wi
 * MSX Assembly Page > [WEB](http://map.grauw.nl/resources/msxbios.php)
 * Portar MSX Tech Doc > [WEB](http://nocash.emubase.de/portar.htm)
 * MSX Resource Center > [WEB](http://www.msx.org/)
-* Karoshi MSX Community (RIP 2007-2020)
+* [Karoshi MSX Community](http://karoshi.auic.es/) 
 * BlueMSX emulator >> [WEB](http://www.bluemsx.com/)
 * OpenMSX emulator >> [WEB](http://openmsx.sourceforge.net/)
 * Meisei emulator >> ?
@@ -130,7 +130,8 @@ The code:
 
  
 
-// define in golbal variables: 
+// pressure control variables
+// define in global (or local) variables: 
 boolean Row0pressed;
 boolean Row1pressed;
 boolean Row2pressed;
@@ -144,6 +145,9 @@ boolean Row8pressed;
 
 void main(void) 
 {
+  char keyPressed;
+  
+  //initialize pressure control variables
   Row0pressed=false;
   Row1pressed=false;
   Row2pressed=false;
