@@ -407,6 +407,6 @@ Row  7      6      5      4      3      2      1      0    <-- bit
 
 ---
 
-## 7 Appendices
+## 7 References
   
 - MSX Assembly Page - [Keyboard matrices](http://map.grauw.nl/articles/keymatrix.php)
