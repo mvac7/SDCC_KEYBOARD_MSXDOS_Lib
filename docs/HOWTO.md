@@ -29,11 +29,9 @@ Programming language: C and Z80 assembler
 
 ## 1 Description
 
-This project is an Open Source library with basic functions for reading the keyboard of MSX computers.
+Library with basic functions for reading the keyboard of MSX computers.
 
 This library uses functions from the MSX BIOS through interslot calls (CALSLT), so that they can be used in MSX-DOS applications.
-
-This project is an Open Source library. You can add part or all of this code in your libraries/engines.
 
 Use them for developing MSX applications using Small Device C Compiler (SDCC).
 
@@ -47,8 +45,8 @@ Enjoy it!
 
 ## 2 Requirements
 
-* Small Device C Compiler (SDCC) v3.9 http://sdcc.sourceforge.net/
-* Hex2bin v2.5 http://hex2bin.sourceforge.net/ 
+- [Small Device C Compiler (SDCC) v4.1](http://sdcc.sourceforge.net/)
+- [Hex2bin v2.5](http://hex2bin.sourceforge.net/) 
 
 <br/>
 
