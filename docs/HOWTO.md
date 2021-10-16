@@ -409,8 +409,9 @@ Row  7      6      5      4      3      2      1      0    <-- bit
   
 - MSX Assembly Page - [Keyboard matrices](http://map.grauw.nl/articles/keymatrix.php)
 
+<br/>
+
 ---
 
-
 ![Creative Commons License](https://i.creativecommons.org/l/by-nc/4.0/88x31.png) 
-This document is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License](http://creativecommons.org/licenses/by-nc/4.0/).
+<br/>This document is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License](http://creativecommons.org/licenses/by-nc/4.0/).
