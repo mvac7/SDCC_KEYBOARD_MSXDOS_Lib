@@ -1,7 +1,6 @@
 # Keyboard MSX-DOS SDCC Library (fR3eL Project)
 
 ```
-Author: mvac7
 Architecture: MSX
 Format: C Object (SDCC .rel)
 Programming language: C and Z80 assembler
@@ -32,35 +31,56 @@ Enjoy it!
 
 ---
 
+## History of versions:
+
+- v1.1 (8/12/2023) update to SDCC (4.1.12) Z80 calling conventions
+- v1.0 (2/3/2016) first version
+
+<br/>
+
+---
+
 ## Requirements
 
-- [Small Device C Compiler (SDCC) v4.1](http://sdcc.sourceforge.net/)
+- [Small Device C Compiler (SDCC) v4.3](http://sdcc.sourceforge.net/)
 - [Hex2bin v2.5](http://hex2bin.sourceforge.net/)
 
 <br/>
 
 ---
 
-## Acknowledgments
-  
-I want to give a special thanks to all those who freely share their knowledge with the MSX developer community.
+## Functions
 
-- Avelino Herrera > [`WEB`](http://msx.avelinoherrera.com/index_es.html)
-- Nerlaska > [`Blog`](http://albertodehoyonebot.blogspot.com.es)
-- Marq > [`Marq`](http://www.kameli.net/marq/)
-- MSXKun/Paxanga soft > [`WEB`](http://paxangasoft.retroinvaders.com/)
-- Fubukimaru [`gitHub`](https://github.com/Fubukimaru)
-- Andrear > [`Blog`](http://andrear.altervista.org/home/msxsoftware.php)
-- Sapphire/Z80ST > [`WEB`](http://z80st.auic.es/)
-- Fernando García > [`Video Tutorial`](http://www.z80st.es/cursos/bitvision-assembler)
-- Ramones > [`MSXblog`](https://www.msxblog.es/tutoriales-de-programacion-en-ensamblador-ramones/) - [`MSXbanzai`](http://msxbanzai.tni.nl/dev/faq.html)
-- Eric Boez > [`gitHub`](https://github.com/ericb59)
-- MSX Assembly Page > [`WEB`](http://map.grauw.nl/resources/msxbios.php)
-- Portar MSX Tech Doc > [`WEB`](https://problemkaputt.de/portar.htm)
-- MSX Resource Center > [`WEB`](http://www.msx.org/)
-- Karoshi MSX Community > [`WEB`](http://karoshi.auic.es/)
-- BlueMSX emulator >> [`WEB`](http://www.bluemsx.com/)
-- OpenMSX emulator >> [`WEB`](http://openmsx.sourceforge.net/)
-- [`WebMSX`](https://webmsx.org/) emulator by Paulo A. Peccin >> [`gitHub`](https://github.com/ppeccin/webmsx)
-- fMSX emulator by Marat Fayzullin [`WEB`](https://fms.komkon.org/fMSX/)
-- Meisei emulator by Hap >> `?`
+| Function | Description |
+| :---     | :---        |
+| **KillBuffer**() | Clear keyboard buffer |
+| **INKEY**() | Waits for a key press and returns its value |
+| **GetKeyMatrix**(row) | Returns the value of the specified line from the keyboard matrix |
+
+<br/>
+
+---
+
+## Code Examples
+
+In the git project [`examples/`](../examples/), you can find the source code of applications for testing and learning purposes.
+
+<br/>
+
+### TEST_GetKeyMatrix
+
+Test the GetKeyMatrix function.
+
+[`examples/testLib`](examples/TEST_GetKeyMatrix)
+
+![Example screenshot](docs/pics/TEST_0001.png)
+
+<br/>
+
+### TEST_INKEY
+
+Test the INKEY function.
+
+[`examples/test80c`](examples/TEST_INKEY)
+
+![Example screenshot](docs/pics/TEST_0002.png)

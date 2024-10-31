@@ -1,11 +1,4 @@
-# Keyboard MSX-DOS SDCC Library (fR3eL Project)
-
-```
-Author: mvac7
-Architecture: MSX
-Format: C Object (SDCC .rel)
-Programming language: C and Z80 assembler
-```
+# How to use the Keyboard MSX-DOS Library (fR3eL Project)
 
 ---
 
@@ -16,6 +9,9 @@ Programming language: C and Z80 assembler
 - [3 Definitions](#3-Definitions)
     - [3.1 Bit values](#31-Bit-values)
 - [4 Functions](#4-Functions)
+	- [4.1 KillBuffer](#41-KillBuffer)
+	- [4.2 INKEY](#42-INKEY)
+	- [4.3 GetKeyMatrix](#43-GetKeyMatrix)
 - [5 A bit of code](#5-A-bit-of-code)
 - [6 Appendices](#6-Appendices)
     - [6.1 Keyboard Matrix](#61-Keyboard-Matrix)
@@ -45,7 +41,7 @@ Enjoy it!
 
 ## 2 Requirements
 
-- [Small Device C Compiler (SDCC) v4.1](http://sdcc.sourceforge.net/)
+- [Small Device C Compiler (SDCC) v4.3](http://sdcc.sourceforge.net/)
 - [Hex2bin v2.5](http://hex2bin.sourceforge.net/) 
 
 <br/>
@@ -56,7 +52,7 @@ Enjoy it!
 
 ### 3.1 Bit values
 
-You can use it to check the key pressed with the GetKeyMatrix function.
+You can use it to check the key pressed with the [GetKeyMatrix](#43-GetKeyMatrix) function.
 
 Label | value
 :---  | ---:  
@@ -73,8 +69,8 @@ Bit7  | 128
 #### Example:
 
 ```c
-keyPressed = GetKeyMatrix(7);
-if (!(keyPressed&Bit4)) Stop();   // [STOP]
+  keyPressed = GetKeyMatrix(7);
+  if (!(keyPressed&Bit4)) Stop();   // [STOP]
 ```
 
 <br/>
@@ -100,7 +96,7 @@ if (!(keyPressed&Bit4)) Stop();   // [STOP]
 
 <table>
 <tr><th colspan=3 align="left">INKEY</th></tr>
-<tr><td colspan=3>One character input (waiting) and return its code.</td></tr>
+<tr><td colspan=3>Waits for a key press and returns its value.</td></tr>
 <tr><th>Function</th><td colspan=2>INKEY()</td></tr>
 <tr><th>Input</th><td colspan=2>--</td></tr>
 <tr><th>Output</th><td>[char]</td><td>Key code</td></tr>
@@ -137,13 +133,13 @@ Uncomment the lines of the keys you need and add the code to be executed, after 
 #### Example:
 
 ```c
-    if (!(keyPressed&Bit5)) {Row6pressed=true;KonamisPause();}; // [F1]
-    if (!(keyPressed&Bit6)) 
-    {
-        Row6pressed=true;
-        score++;
-        ShowValue(score);
-    }; // [F2]
+  if (!(keyPressed&Bit5)) {Row6pressed=true;KonamisPause();}; // [F1]
+  if (!(keyPressed&Bit6)) 
+  {
+     Row6pressed=true;
+	 score++;
+	 ShowValue(score);
+  }; // [F2]
 ```
 
 
