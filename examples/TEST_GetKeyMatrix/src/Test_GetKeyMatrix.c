@@ -5,6 +5,7 @@
    Architecture: MSX
    Format:  .COM (MSX-DOS)
    Programming language: C (SDCC)
+   Compiler: SDCC 4.3 or newer 
 
    Description:
      Test the GetKeyMatrix function of the SDCC Keyboard MSX-DOS library
@@ -33,7 +34,7 @@
 #define BASE0 0x0000 // Name Table
 #define BASE2 0x0800 // Pattern Table
 
-//VDP Ports  
+//VDP Ports
 #define VDPVRAM   0x98  //VRAM Data (Read/Write)
 #define VDPSTATUS 0x99  //VDP Status Registers
 
@@ -231,13 +232,12 @@ void test(void)
   char row;
   uint i;
   uint offset;
-  uint vaddr = BASE2 + (32*8);
+  uint vaddr;
   char isExit = 0;
   
-//  COLOR(LIGHT_GREEN,DARK_GREEN,DARK_GREEN);    
+
   SCREEN0();
 
-  //CopyToVRAM((uint) keyb_map,BASE0,0x3c0);
   SetVRAMtoWRITE(BASE0);
   for(i=0;i<0x3c0;i++){FastVPOKE(keyb_map[i]);}
     
@@ -246,12 +246,13 @@ void test(void)
   PRINT(0,2,text03);
   
   
-  // genera una copia de los caracteres en la posicion 128 en negativo
-  for(i=0;i<768;i++)
+  //generates a negative copy of the characters at position 128 of the pattern table
+  vaddr = BASE2 + (32*8);
+  for (i=0;i<768;i++)
   {
-    val = ~ VPEEK(vaddr); //invierte el valor
-    VPOKE(val,vaddr+768); //lo copia en un tile superior
-    vaddr++;              // avanza a la siguiente posicion de la vram
+    val = ~ VPEEK(vaddr); //reads the value of pattern and inverts it
+    VPOKE(val,vaddr+768); //copy the value to 96 characters later
+    vaddr++;              //advance to the next position of the vram
   }
 
   
@@ -295,55 +296,35 @@ void test(void)
 
 
 /* -----------------------------------------------------------------------------
-
+   Displays the key pressed
 ----------------------------------------------------------------------------- */
 void printKey(char column, char line)
 { 
-  char B;
-  uint addr;
-//  uint addr;
+  char B=3;
+  uint vaddr;
   
-  addr = BASE0 + 244 + (column*4) +(line*80);
-//  addr= (uint) keyb_map + vaddr;
+  vaddr = BASE0 + 244 + (column*4) +(line*80);
   
-  SetVRAMtoWRITE(addr);
-  for(B=0;B<3;B++){FastVPOKE(keyb_map[addr++]+96);}
+  SetVRAMtoWRITE(vaddr);
+  while(B--) FastVPOKE(keyb_map[vaddr++]+96);
   
-//  FastVPOKE(keyb_map[addr++]+96);
-//  FastVPOKE(keyb_map[addr++]+96);
-//  FastVPOKE(keyb_map[addr]+96);
-  
-/*  tmpTile = PEEK(addr++)+96;
-  VPOKE(tmpTile,vaddr++);
-  tmpTile = PEEK(addr++)+96;
-  VPOKE(tmpTile,vaddr++);
-  tmpTile = PEEK(addr)+96;
-  VPOKE(tmpTile,vaddr);*/
 }
 
 
+
+/* -----------------------------------------------------------------------------
+   Shows the key in unpressed state
+----------------------------------------------------------------------------- */
 void clearKey(char column, char line)
 { 
-  char B;
-  uint addr;
-//  uint addr;
+  char B=3;
+  uint vaddr;
   
-  addr = BASE0 + 244 + (column*4) +(line*80);
-//  addr= (uint) keyb_map + vaddr;
+  vaddr = BASE0 + 244 + (column*4) +(line*80);
   
-  SetVRAMtoWRITE(addr);
-  for(B=0;B<3;B++){FastVPOKE(keyb_map[addr++]);}
-  
-//  FastVPOKE(keyb_map[addr++]+96);
-//  FastVPOKE(keyb_map[addr++]+96);
-//  FastVPOKE(keyb_map[addr]+96);
-  
-/*  tmpTile = PEEK(addr++)+96;
-  VPOKE(tmpTile,vaddr++);
-  tmpTile = PEEK(addr++)+96;
-  VPOKE(tmpTile,vaddr++);
-  tmpTile = PEEK(addr)+96;
-  VPOKE(tmpTile,vaddr);*/
+  SetVRAMtoWRITE(vaddr);
+  while(B--) FastVPOKE(keyb_map[vaddr++]);
+ 
 }
 
 
@@ -353,14 +334,10 @@ void clearKey(char column, char line)
 ============================================================================= */
 void PRINT(char column, char line, char* text)
 {
-  char character;
   uint vaddr = BASE0 + (line*40)+column; //<------ BASE0 for screen 0; use BASE5 for screen 1 
 
-  while(*(text))
-  {
-    character=*(text++);
-    VPOKE(character,vaddr++);
-  }
+  while(*(text)) FastVPOKE(*(text++));
+  
 }
 
 
