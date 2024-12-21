@@ -1,6 +1,6 @@
 /* =============================================================================
    Test GetKeyMatrix
-   Version: 1.2 (30/10/2024)
+   Version: 1.3 (21/12/2024)
    Author: mvac7/303bcn
    Architecture: MSX
    Format:  .COM (MSX-DOS)
@@ -11,10 +11,10 @@
      Test the GetKeyMatrix function of the SDCC Keyboard MSX-DOS library
      
    History of versions:
-     - v1.2 (30/10/2024) update to SDCC (4.1.12) Z80 calling conventions
+     - v1.3 (21/12/2024) Fixed bug in PRINT function and any improvements
+	 - v1.2 (30/10/2024) update to SDCC (4.1.12) Z80 calling conventions
      - v1.1 (11/08/2019) improved pulsation control
-     - v1.0 (14/07/2018)
-     
+     - v1.0 (14/07/2018) first version     
 ============================================================================= */
 
 #include "../include/newTypes.h"
@@ -41,7 +41,7 @@
 
 
 // Function Declarations -------------------------------------------------------
-void System(char code);
+//void System(char code);
 
 char PEEK(unsigned int address);
 void POKE(char value, unsigned int address);
@@ -168,24 +168,25 @@ void main(void)
   if(scrcolumns<33) SCREEN1();        //restore screen mode
   else SCREEN0();
     
-  System(DOS_TERM0);                  //return to DOS
+  //System(DOS_TERM0);                  //return to DOS
 //--------------------------------------------------------------------- end EXIT  
 
 }
 
 
-
-// call system functions 
-// see MSX Assembly Page > MSX-DOS 2 function calls
-// http://map.grauw.nl/resources/dos2_functioncalls.php
-void System(char code) __naked
+/* =============================================================================
+   call system functions 
+   see MSX Assembly Page > MSX-DOS 2 function calls
+   http://map.grauw.nl/resources/dos2_functioncalls.php
+============================================================================= */
+/*void System(char code) __naked
 {
 code;	//A
 __asm
   ld   C,A
-  jp BDOS
+  jp   BDOS
 __endasm; 
-}
+}*/
 
 
 
@@ -335,7 +336,8 @@ void clearKey(char column, char line)
 void PRINT(char column, char line, char* text)
 {
   uint vaddr = BASE0 + (line*40)+column; //<------ BASE0 for screen 0; use BASE5 for screen 1 
-
+  
+  SetVRAMtoWRITE(vaddr);
   while(*(text)) FastVPOKE(*(text++));
   
 }
@@ -365,7 +367,7 @@ __asm
   ld   (#LINL40),A   ;copy columns seting with WIDTH to LINL40 system var
    
   ld   IX,#BIOS_INITXT
-$CallBIOS:
+CallBIOS:
   ld   IY,(#EXPTBL-1)
   call BIOS_CALSLT
   
@@ -395,7 +397,7 @@ __asm
   ld   (#LINL32),A   ;set system variable
    
   ld   IX,#BIOS_INIT32
-  jp   $CallBIOS  
+  jp   CallBIOS  
 __endasm;
 }
 
@@ -414,12 +416,7 @@ __asm
   push IX
 
   ld   IX,#BIOS_RDVRM
-  ld   IY,(#EXPTBL-1)
-  call BIOS_CALSLT
-  ei
-
-  pop  IX
-  ret
+  jp   CallBIOS
 __endasm;
 }
 
@@ -444,12 +441,7 @@ __asm
 
   ex   DE,HL
   ld   IX,#BIOS_WRTVRM
-  ld   IY,(#EXPTBL-1)
-  call BIOS_CALSLT
-  ei
-
-  pop  IX
-  ret
+  jp   CallBIOS
 __endasm;
 }
 
@@ -469,12 +461,7 @@ __asm
   push IX
 
   ld   IX,#BIOS_SETWRT
-  ld   IY,(#EXPTBL-1)
-  call BIOS_CALSLT
-  ei
-
-  pop  IX
-  ret
+  jp   CallBIOS
 __endasm;
 }   
 

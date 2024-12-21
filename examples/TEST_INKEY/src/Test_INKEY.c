@@ -12,7 +12,7 @@
 	 
 	History of versions:
 	- v1.1 (8/12/2023)
-	- v1.0 (24/06/2018)<     
+	- v1.0 (24/06/2018)
 ============================================================================= */
 
 #include "../include/newTypes.h"
@@ -28,11 +28,8 @@
 
 
 // Function Declarations -------------------------------------------------------
-void System(char code);
-
 void test(void);
 
-void bchput(char value);
 void PrintFill(char length, char character);
 
 char PEEK(uint address);
@@ -61,8 +58,6 @@ void main(void)
   test();
   
   PRINT("\n\nEND");
-     
-  System(DOS_TERM0);
 }
 
 
@@ -156,25 +151,6 @@ void test(void)
 		KillBuffer();
 	}
   
-}
-
-
-
-// call system functions 
-// see MSX Assembly Page > MSX-DOS 2 function calls
-// http://map.grauw.nl/resources/dos2_functioncalls.php
-void System(char code) __naked
-{
-code;
-__asm
-	push IX
-
-	ld   C,A    ;function number
-	call BDOS   ;call BDOS
-
-	pop  IX
-    ret
-__endasm; 
 }
 
 
